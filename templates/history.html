@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>History 🎵</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {background: #0f172a; color: #f8fafc; font-family: 'Poppins', sans-serif; text-align: center;}
+  h1 {background: linear-gradient(to right, #60a5fa, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+  .card {background: rgba(255,255,255,0.05); margin: 20px auto; padding: 20px; width: 60%; border-radius: 10px;}
+  a {color: #38bdf8; text-decoration: none;}
+  a:hover {text-decoration: underline;}
+</style>
+</head>
+<body>
+  <h1>🎶 Your Generated Tracks</h1>
+  {% if history %}
+    {% for item in history %}
+      <div class="card">
+        <h3>{{ item.prompt }}</h3>
+        <p><b>Genre:</b> {{ item.genre }} | <b>Mood:</b> {{ item.mood }}</p>
+        <p><small>{{ item.timestamp }}</small></p>
+        <audio controls src="{{ item.url }}"></audio><br>
+        <a href="{{ item.url }}" download>⬇️ Download</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No tracks yet. Generate some music first!</p>
+  {% endif %}
+  <br><a href="/composer">🎼 Back to Composer</a>
+</body>
+</html>

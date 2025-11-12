@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whispers of the Wires 🎵 | Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav h2 {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.6rem;
+      margin: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #cbd5e1;
+      margin: 0 15px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 20px 40px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      animation: fadeIn 1s ease;
+    }
+
+    .hero p {
+      color: #94a3b8;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+      animation: fadeIn 1.8s ease;
+    }
+
+    .hero lottie-player {
+      margin-top: 40px;
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      color: #0f172a;
+      padding: 12px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-top: 40px;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(56,189,248,0.5);
+    }
+
+    /* How It Works Section */
+    .how-it-works {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 20px;
+      margin: 60px auto;
+      width: 90%;
+      max-width: 1100px;
+    }
+
+    .how-it-works h2 {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .step {
+      width: 280px;
+      background: rgba(255,255,255,0.08);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(56,189,248,0.1);
+      transition: 0.3s;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px rgba(56,189,248,0.4);
+    }
+
+    .step img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .step h3 {
+      color: #f8fafc;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 0;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    @keyframes fadeInUp { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <h2>Whispers AI</h2>
+    <div>
+      <a href="/">🏠 Home</a>
+      <a href="/composer">🎧 Composer</a>
+      <a href="/history">🕘 History</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Where Artificial Intelligence Meets Artistry 🎵</h1>
+    <p>“Whispers of the Wires” transforms your imagination into sound. Describe a theme — and our AI will compose original, emotion-rich music just for you. </p>
+    <lottie-player src="https://lottie.host/40406aa7-ec0b-4b2e-8d93-0db4a61a8fa9/DQpsm1FQIL.json" background="transparent" speed="1" loop autoplay></lottie-player>
+    <a href="/composer" class="btn">🎹 Start Composing</a>
+  </section>
+
+  <section class="how-it-works">
+    <h2>How It Works ⚡</h2>
+    <div class="steps">
+      <div class="step">
+        <img src="https://cdn.dribbble.com/users/1731254/screenshots/11770560/media/4dbbde1f0cf616b498db89e2742068d2.gif" alt="Text prompt" />
+        <h3>1️⃣ Describe Your Theme</h3>
+        <p>Enter a short prompt — like “peaceful rain” or “cyberpunk city” — to inspire your unique melody.</p>
+      </div>
+
+      <div class="step">
+        <img src="https://cdn.dribbble.com/users/420183/screenshots/14154956/media/6ec9f7e87eb740a155a95b02ea099e4d.gif" alt="AI composing music" />
+        <h3>2️⃣ AI Composes Music</h3>
+        <p>Using Meta’s MusicGen model, your prompt is transformed into a high-quality music composition.</p>
+      </div>
+
+      <div class="step">
+        <img src="https://cdn.dribbble.com/users/2437575/screenshots/17528341/media/53f11254a8cf7a83b222f7b58031a1b0.gif" alt="Download music" />
+        <h3>3️⃣ Listen & Download</h3>
+        <p>Preview the generated melody instantly, visualize its waveform, and download your masterpiece.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Whispers of the Wires | Crafted with ❤️ using AI & Creativity
+  </footer>
+</body>
+</html>

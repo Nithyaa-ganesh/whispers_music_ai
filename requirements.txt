@@ -1,0 +1,10 @@
+flask
+python-dotenv
+pinecone-client
+transformers
+torch
+tensorflow
+librosa
+numpy
+scipy
+soundfile

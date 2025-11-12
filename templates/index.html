@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎧 Whispers of the Wires | AI Composer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/wavesurfer.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      color: #e2e8f0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    nav {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    nav h2 {
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      font-size: 1.6rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #cbd5e1;
+      font-weight: 500;
+      margin: 0 10px;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+      text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+      margin-bottom: 30px;
+      font-size: 1rem;
+      text-align: center;
+      animation: fadeIn 1.8s ease;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      border-radius: 16px;
+      padding: 25px;
+      max-width: 550px;
+      width: 100%;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+      margin-bottom: 30px;
+      animation: fadeIn 2s ease;
+    }
+
+    input, select {
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      background: #1e293b;
+      color: #f8fafc;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      box-shadow: 0 0 10px #38bdf8;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      color: #0f172a;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+    }
+
+    #waveform {
+      width: 100%;
+      height: 128px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      margin-top: 20px;
+      overflow: hidden;
+      transition: 0.5s ease;
+    }
+
+    #loader {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #output {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .download-btn {
+      margin-top: 15px;
+      background: #14b8a6;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .download-btn:hover {
+      transform: scale(1.05);
+      background: #0d9488;
+    }
+
+    .history {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 20px;
+      animation: fadeIn 2.5s ease;
+    }
+
+    .history h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #94a3b8;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      animation: fadeIn 0.8s ease;
+    }
+
+    .history-item:last-child { border-bottom: none; }
+    .history-item span { color: #cbd5e1; }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <h2>Whispers AI</h2>
+    <div>
+      <a href="/">🏠 Home</a>
+      <a href="/composer">🎧 Composer</a>
+      <a href="/history">🕘 History</a>
+    </div>
+  </nav>
+
+  <h1>Whispers of the Wires 🎶</h1>
+  <div class="subtitle">Compose unique AI-generated music that matches your mood and genre.</div>
+
+  <div class="card">
+    <input type="text" id="prompt" placeholder="Describe your theme (e.g. peaceful rain)" />
+    <select id="genre">
+      <option disabled selected>Select Genre</option>
+      <option>Pop</option>
+      <option>Jazz</option>
+      <option>Rock</option>
+      <option>Classical</option>
+      <option>Hip-hop</option>
+    </select>
+    <select id="mood">
+      <option disabled selected>Select Mood</option>
+      <option>Happy</option>
+      <option>Sad</option>
+      <option>Calm</option>
+      <option>Energetic</option>
+    </select>
+
+    <button onclick="generateMusic()">🎧 Generate Music</button>
+
+    <div id="loader">
+      <lottie-player
+        src="https://assets2.lottiefiles.com/packages/lf20_tbrwjiv5.json"
+        background="transparent"
+        speed="1"
+        style="width: 150px; height: 150px; margin: auto;"
+        loop
+        autoplay>
+      </lottie-player>
+      <p>Composing your melody... please wait 🎶</p>
+    </div>
+
+    <div id="output"></div>
+    <div id="waveform"></div>
+  </div>
+
+  <div class="history" id="history">
+    <h2>🎼 Generated History</h2>
+    <div id="history-list"></div>
+  </div>
+
+  <script>
+    let wavesurfer;
+    let historyData = [];
+
+    async function generateMusic() {
+      const prompt = document.getElementById("prompt").value.trim();
+      const genre = document.getElementById("genre").value;
+      const mood = document.getElementById("mood").value;
+      const loader = document.getElementById("loader");
+      const output = document.getElementById("output");
+      const waveformDiv = document.getElementById("waveform");
+
+      if (!prompt || genre === "Select Genre" || mood === "Select Mood") {
+        output.innerHTML = "<p>⚠️ Please fill all fields before generating.</p>";
+        return;
+      }
+
+      output.innerHTML = "";
+      loader.style.display = "block";
+      waveformDiv.innerHTML = "";
+
+      try {
+        const response = await fetch("/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt, genre, mood }),
+        });
+
+        const result = await response.json();
+        loader.style.display = "none";
+
+        if (result.url) {
+          const audioUrl = result.url;
+          output.innerHTML = `
+            <p>✅ Music generated successfully!</p>
+            <button class="download-btn" onclick="downloadMusic('${audioUrl}')">⬇️ Download Music</button>
+          `;
+
+          // Initialize Wavesurfer
+          if (wavesurfer) wavesurfer.destroy();
+          wavesurfer = WaveSurfer.create({
+            container: "#waveform",
+            waveColor: "#38bdf8",
+            progressColor: "#818cf8",
+            cursorColor: "#fff",
+            barWidth: 3,
+            responsive: true,
+            height: 100,
+          });
+          wavesurfer.load(audioUrl);
+
+          // Save to History
+          addToHistory(prompt, genre, mood, audioUrl);
+        } else {
+          output.innerHTML = `<p>❌ Error: ${result.error}</p>`;
+        }
+      } catch (error) {
+        loader.style.display = "none";
+        output.innerHTML = "<p>⚠️ Network error. Please try again.</p>";
+      }
+    }
+
+    function downloadMusic(url) {
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "generated_music.wav";
+      a.click();
+    }
+
+    function addToHistory(prompt, genre, mood, url) {
+      const historyList = document.getElementById("history-list");
+      const item = document.createElement("div");
+      item.classList.add("history-item");
+      item.innerHTML = `
+        <span>🎵 ${prompt} | <b>${genre}</b> • ${mood}</span>
+        <button class="download-btn" onclick="playFromHistory('${url}')">▶️ Play</button>
+      `;
+      historyList.prepend(item);
+
+      historyData.push({ prompt, genre, mood, url });
+      if (historyData.length > 5) {
+        historyList.removeChild(historyList.lastChild);
+        historyData.pop();
+      }
+    }
+
+    function playFromHistory(url) {
+  if (wavesurfer) {
+    wavesurfer.destroy();
+  }
+
+  wavesurfer = WaveSurfer.create({
+    container: "#waveform",
+    waveColor: "#38bdf8",
+    progressColor: "#818cf8",
+    cursorColor: "#fff",
+    barWidth: 3,
+    responsive: true,
+    height: 100,
+  });
+
+  // Load the file and play once it's ready
+  wavesurfer.load(url);
+  wavesurfer.on("ready", () => {
+    wavesurfer.play();
+  });
+
+  // Optional: Handle errors
+  wavesurfer.on("error", (e) => {
+    console.error("Audio load error:", e);
+    alert("⚠️ Couldn't load audio. Try regenerating or reloading the page.");
+  });
+}
+
+  </script>
+</body>
+</html>

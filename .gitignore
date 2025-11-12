@@ -1,0 +1,19 @@
+# Ignore virtual environment and system files
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Ignore local data
+uploads/
+dataset/
+generated_audio/
+
+# Ignore environment variables
+.env
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
